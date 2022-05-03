@@ -1,35 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-// import components here
-import App from './App';
-import DepartmentComponent from './components/departmentcomponent/departmentcomponent';
-import ContexctProviderComponent from './components/contextprovidercomponent/contextprovidercomponent';
-import FormValidationComponent from './components/validationcomponent/FormValidationComponent';
-import ToggleComponent from './components/lifecyclewitheffect/togglecomponent';
-import AjaxCallComponent from './components/useeffectajaxcomponent/ajaxcallcomponent';
-import UseCustomHookReducerComponent from './components/cusomhookusereducer/usecustomhookcomponent';
-import ContainerComponent from './components/errorchecks/simpleerrorcheckcomponent';
-import ContainerComponentWithErrorBoundary from './components/errorchecks/errorcondarycomponent';
-import ListDepartmentsComponent from './components/routingapp/listdepartmentscomponent';
-// Importing Bootstrap css
-import  './../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import MainRouterComponent from './components/routingapp/mainroutercomponent';
-// Point to the <div> rag in index.html that is present
-// in the public
-const root = ReactDOM.createRoot(document.getElementById('root'));
-// The App Component will be rendered
-// Mount the Out HTML generated from returned DOM
-// of the Component in the 'root' element 
-const Message= 'WelCome';
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import { createStore,compose } from "redux";
+
+import { Provider } from "react-redux";
+
+import "./index.css";
+import "./../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import MainReduxComponent from "./components/reduxapp/mainreduxcomponent";
+import reportWebVitals from "./reportWebVitals";
+
+// import reducer
+import reducers from "./components/reduxapp/reducers/reducer";
+
+const enhancer =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+// create a store
+
+let store = createStore(reducers,enhancer);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// configure the store with the application
 root.render(
   <React.StrictMode>
-    {/* The 'message' is a props type thata is passed by the Root to DepartmentComponent */}
-    <BrowserRouter>
-      <MainRouterComponent></MainRouterComponent>
-    </BrowserRouter>
+    <Provider store={store}>
+      <MainReduxComponent></MainReduxComponent>
+    </Provider>
   </React.StrictMode>
 );
 

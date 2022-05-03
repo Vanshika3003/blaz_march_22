@@ -278,4 +278,74 @@ const MyChildComponent=(props)=>{
                 - For finding the out the URL match so that parameters from it can be read using the 'useParams' hook    
             - useNavigate
                 - This will be used to read the Route URL so that the Route Parameters can be read
-                - Use this hook to navigate  explicitly to the component     
+                - Use this hook to navigate  explicitly to the component
+
+- State Management
+
+- Store: 
+    - The Object that contains schema and data that will be shared across components
+    - The Store is a Global Object, that is subscribed by all components
+- Views
+    - These are React Components
+    - These will be used by end-user to dispatch actions using events
+    - Views are subscribed with the Store to read data from the store
+- actions
+    - These are the function objects those are responsible to listen to the request dispatched by the view
+    - actions accepts data from View and then process it
+        - Each action has in output action and output data  
+            - The input action is responsible to generate an output action with following two properties
+                - ACTION_TYPE: The Output action
+                - PAYLOAD: The Data 
+        - action can be synchronous or asynchronous
+    - WHAT HAS HAPPENED IS SET BY ACTION    
+- reducer
+    - When the output action is generated with output data, the reducer will listen to the action and will update data in store
+    - Reducer is configured at the global level of the application so that each action dispatched from each view can be monitored
+    - HOW ITS HAS HAPPENED IS SET BY REDUCER
+    - technically
+        - It is a function that accepts two parameters
+            - Initial State
+                - When the app is loaded this may be empty/null/undefined
+                - This is also be a 'previousData' in the store 
+            - action
+                - The resultant or output action with the payload
+        - It return one parameter
+            - lates state in the store    
+        - One Reducer Function can call another reducer function    
+        - When there are multiple reducer functions, they are aggregated into a single reducer object using 'combineReducers' 
+        - IMP NOTE******
+            - Since Reducer needs to update the state in store to lates data, it MUST be high performant, please do not write complex/performance costly logic e.g. AJAX Calls, Promises, Data-Time operations into the reducer function
+
+- 'redux' package
+    - Creating a store
+        - The 'createStore()' method
+        - This will create a store at the global application level
+    - The reducer object
+        - The 'combineReducers()' a method that accepts one-or-more reducers into s single object so that, they can be loaded at application level
+        - let reducres = combineReducers({all reducers});    
+        - let store = createStore(reducres);       
+- 'react-redux' package
+    - Bridge between react and redux
+    - 'Provider' component, this is used to start the lifecycle of React Application which is using redux store
+        - The 'store' proeprty of the Provider will load the redux store at the application level
+    - Redux Hooks
+        - The 'useDispatch()'
+            - a hook that will dispatch an action from View using an UI Event
+        - The 'useSelector()'   
+            - a hook that is used by View to subscribe to the store and read data from it
+    - SOme Old Object but they are still is use (deprecated)
+        - The 'connect()' method
+            - Used to connect  the 'store' with views 
+            - This is used to dispatch action from View
+                    - mapDispatchToProps, deprecated using 'useDispatch'
+                        - The 'Dispatch', means the action that is dispatched
+            - This is used to read data from store and provide to View
+                    - mapStateToProps, deprecated using 'useSelector'
+                        - The 'Sate', means data from the Store
+        - connect(mapDispatchToProps, mapStateToProps)(MyContainerComponent);
+            -  The MyContainerComponent is subscribed to the Redux Store and all children of this component will be also used to dispatch action and read data from store 
+         
+
+
+
+

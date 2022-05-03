@@ -372,3 +372,9 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
     - Department            Employee
     - When the Department Link is clicked , show Layout for Department Single Page Application
     - When the Employee Link is clicked , show Layout for Employee Single Page Application       
+
+# Date: 03-May-2022
+1. Modify the Redux App, where when the row is selected from the ListDepartmentsCompoennt, it MUST be dhown in AddDepartmentComponent using 
+    - New Action: SelectDept
+    - Additional Reducer
+    - The Selector to read data from the store
