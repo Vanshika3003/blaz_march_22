@@ -18,7 +18,7 @@ const ListDepartmentsSAGAComponent = () => {
     // update the state for departments
     setDepartments(stateData);
     // }
-  });
+  },[stateData]);
 
   //    return (
   //        <div className="container">
