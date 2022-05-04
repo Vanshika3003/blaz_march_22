@@ -345,7 +345,43 @@ const MyChildComponent=(props)=>{
         - connect(mapDispatchToProps, mapStateToProps)(MyContainerComponent);
             -  The MyContainerComponent is subscribed to the Redux Store and all children of this component will be also used to dispatch action and read data from store 
          
+- Using React-Redux with Middlewares for Async calls
+    - The 'applyMoiddleware()', function object that is used to register all middlewares for async calls at the store
+        - let store = createStore(reducers, applyMiddleware(SAGA-Middleware OR THUNK-Middleware));
 
+    - The 'redux-saga' package
+        - The 'createSagaMiddleware()'
+            - return an object that will register the 'SAGAS' defined in the current application on the store
+            - let mymiddleware = createSagaMiddleware()
+            - Configure the middleware on Store 
+                 -  let store = createStore(reducers, applyMiddleware(mymiddleware));     
+            - Run the middleware at application level
+                - mymiddleware.run();
+                    - Like reducers, all the actions dispatched by SAGA Middlweare will be listened at the application level
+- How SAGA will work for React-redux App
+    - The 'redux-saga/effects' Module
+        - This module contains methods for the SAGA Execution
+            - all()
+                - Listen to all action dispatched at application level
+            - call()
+                - This will call the external Service/REST API and subscribe to the Promise Object which is resolved or needs to be resolved    
+            - put()
+                - Dispatch the output action against the input action listened by the SAGA
+            - takeLatest() /  take() / takeLast()
+                - Methods those are responsible to read result from the subscribed promise object   
+                - This operator is also responsible to read the action object returned from the dispatched action
+                    - {type: 'SOMETHING_HAPPENED', payload:DATA}       
 
+    - Technically all Sagas are ES 6 generator functions those are responsible to create a sequence of actions (PROMISE CALLS and Resolved Responses ) and provide the output
+        - e.g.
+            - function* MyFunction(){
+                yield the result
+            }  
+            - The 'yield', read the current value return it and proceed to next value till end-of-data is not occurred
+    - IMP NOTE*****
+        - Make sure that two generator functions are created one each for 'each input action' dispatched and 'each output action' dispatched by the SAGA
+            - The Input Generator function will be linked with output generator function           
 
-
+- NOTE: Reducer and Saga both listen to the dispatch actions but the difference is
+    - Reducer, listen to action to update the store so that View will get the updated data from it
+    - Saga, listen to action from View, perform execution (Async) and then dispatch the output action with data. Saga is not responsible for Store updates            
