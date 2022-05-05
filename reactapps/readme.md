@@ -300,6 +300,7 @@ const MyChildComponent=(props)=>{
     - WHAT HAS HAPPENED IS SET BY ACTION    
 - reducer
     - When the output action is generated with output data, the reducer will listen to the action and will update data in store
+    - This is also a PURE JavaScript Function
     - Reducer is configured at the global level of the application so that each action dispatched from each view can be monitored
     - HOW ITS HAS HAPPENED IS SET BY REDUCER
     - technically
@@ -384,4 +385,36 @@ const MyChildComponent=(props)=>{
 
 - NOTE: Reducer and Saga both listen to the dispatch actions but the difference is
     - Reducer, listen to action to update the store so that View will get the updated data from it
-    - Saga, listen to action from View, perform execution (Async) and then dispatch the output action with data. Saga is not responsible for Store updates            
+    - Saga, listen to action from View, perform execution (Async) and then dispatch the output action with data. Saga is not responsible for Store updates 
+
+-  Advanced Concepts with React.js
+    - Code Splitting
+        - Modular approach for building Complex React Application
+        - We segregate various logic in separate code files and load them as on need
+        - A Loading is Asynchronous
+            - Traditional Approach:  import {MyClass} from './../../../file';
+                - MyClass is exported from file.js and imported synchronously
+                    - Search for file.js
+                    - Load the file.js
+                    - Search for exported member MyClass
+                    - Cache the file
+                    - Load MyClass   
+        - Load the file.js asynchronously
+            - import('./../file').then(()=>{}).cache((ex)=>{});    
+        - Use the Asynchronous Module Loading or Code Splitting for Logical objects (Pure code files)    
+    - Lazy Loading
+        - Ract.Lazy()
+            - Import the Module lazily and will be used for processing 
+            - To load and render components lazily
+                - Use Cases:
+                    - Component that has external dependency of REST API call
+                    - Component that is depending upon other re-usable components
+                    - Components that contains complex or third party UI Elements
+            - The 'Suspense', the ExosticComponent that will be creating a placeholder for the lazily loaded component
+                - The 'fallBack': a porperty, that will keep showing the fallback UI till the lazy component is not loaded           
+    - ErroBoundary
+    - Higher-Order-Component
+        - Functional component
+        - That accepts input parameter as component and return component
+        - PURE JavaScript Function
+

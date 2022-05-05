@@ -378,3 +378,13 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
     - New Action: SelectDept
     - Additional Reducer
     - The Selector to read data from the store
+
+# Date: 05-May-2022
+1. Using the Redux-Saga, create CRUD Operations to the REST API
+    - Make sure that, the use logs-in before performing CRUD Operations
+    - Store the use login Status in the Redux-Store, so that before sending the REST CALL for CRUD the login status will be checked  
+    - Make sure that the data is validated before posting it to the REST API
+    - Update and Delete MUST be done by searching the record from Redux Store
+        - Store will be updated for each Update and delete
+        - (Optional): Try Updaing/Deleting multiple records from Store and then send them to REST API  
+2. Use Redux with react-routing-dom     

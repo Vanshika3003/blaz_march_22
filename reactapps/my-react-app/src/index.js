@@ -1,48 +1,35 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-import { createStore,compose, applyMiddleware } from "redux";
-
-// import the createSalaMiddleware so that the current app can use it
-import createSagaMiddleware from 'redux-saga';
-
-import { Provider } from "react-redux";
-
-import "./index.css";
-import "./../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import MainReduxSAGAomponent from "./components/sagaapp/mainsagacomponent";
-
-import reportWebVitals from "./reportWebVitals";
-
-
-
-// import reducer
-import reducers from "./components/sagaapp/reducers/reducers";
-// import saga
-import rootSaga from "./components/sagaapp/sagas/sagas";
-const enhancer =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-
-// create a Saga Middleware Object
-// Initialization the Middleware for the current store and hence the application
-const sagaMiddleware = createSagaMiddleware();
-
-
-// create a store
-// create a store with saga middleware
-// the store knows that there may be async actions
-let store = createStore(reducers,applyMiddleware(sagaMiddleware));
-
-// keep the SAGA Middleware running at application level
-sagaMiddleware.run(rootSaga); 
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-// configure the store with the application
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+// import components here
+import App from './App';
+import DepartmentComponent from './components/departmentcomponent/departmentcomponent';
+import ContexctProviderComponent from './components/contextprovidercomponent/contextprovidercomponent';
+import FormValidationComponent from './components/validationcomponent/FormValidationComponent';
+import ToggleComponent from './components/lifecyclewitheffect/togglecomponent';
+import AjaxCallComponent from './components/useeffectajaxcomponent/ajaxcallcomponent';
+import UseCustomHookReducerComponent from './components/cusomhookusereducer/usecustomhookcomponent';
+import ContainerComponent from './components/errorchecks/simpleerrorcheckcomponent';
+import ContainerComponentWithErrorBoundary from './components/errorchecks/errorcondarycomponent';
+import ListDepartmentsComponent from './components/routingapp/listdepartmentscomponent';
+// Importing Bootstrap css
+import  './../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import MainRouterComponent from './components/routingapp/mainroutercomponent';
+import CodeSplitComponent from './components/codesplitiing/codesplittingcomponent';
+import LazyComponent from './components/lazyloadingcomponent/loazyloadedcomponent';
+// Point to the <div> rag in index.html that is present
+// in the public
+const root = ReactDOM.createRoot(document.getElementById('root'));
+// The App Component will be rendered
+// Mount the Out HTML generated from returned DOM
+// of the Component in the 'root' element 
+const Message= 'WelCome';
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-     <MainReduxSAGAomponent></MainReduxSAGAomponent>
-    </Provider>
+    {/* The 'message' is a props type thata is passed by the Root to DepartmentComponent */}
+    <LazyComponent></LazyComponent>
   </React.StrictMode>
 );
 
