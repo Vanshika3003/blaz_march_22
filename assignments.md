@@ -388,3 +388,8 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
         - Store will be updated for each Update and delete
         - (Optional): Try Updaing/Deleting multiple records from Store and then send them to REST API  
 2. Use Redux with react-routing-dom     
+
+# Date: 06-May-2022
+
+1. Use Next.js to create a Single Page for App CRUD operations on departments by calling the REST API
+    - Show me how will you integrated bootstrap with next.js
