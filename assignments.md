@@ -393,3 +393,7 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
 
 1. Use Next.js to create a Single Page for App CRUD operations on departments by calling the REST API
     - Show me how will you integrated bootstrap with next.js
+
+# Date:09-May-2022
+1. Write a test on DepartmentComponent to make sure that, when Save button is clicked, a new Department record is added into the table
+2. Write a test on DepartmentComponent to make sure that when the invalid DeptNo, DeptName, Capacity are entered validation messaged are displayed    

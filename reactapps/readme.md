@@ -418,3 +418,41 @@ const MyChildComponent=(props)=>{
         - That accepts input parameter as component and return component
         - PURE JavaScript Function
 
+
+# Testing react Application
+
+- Test Component
+    - DOM Testing
+        - Databinding
+        - Events
+    - Unit Test
+        - Arrange
+            - Collect all required dependencies for running the test 
+            - Expected Result
+        - Act
+            - Invoke Function to be tested
+            - Get the Actual Result
+        - Assert     
+            -Compare Expected Result with Actual Result
+
+    - JEST Integration with React CLI
+        - In-Memory Testing
+            - No Browser is required to Run the Test
+        - react-dom
+            - render
+                - render the component in Memory
+            - unmountComponentAtNode
+                - Unload the DOM from Memory when the test is completed and frees the memory
+        - react-dom/test-utils
+            - act()
+                - Asynchronusly load the Component and test it
+    - Unit Test Structure
+        - describe(), create a test Suit
+            - it(), the test case           
+            - beforeEach()
+                - Write a common code that will be executed before each test case starts
+            - afterEach()   
+                - Write a common code that will be executed after each test case compleets its execution                       
+    - CReatr a test Fodler  
+        - In this folder the file name for the test MUST be
+            - COMPONENT-NAME.test.js        

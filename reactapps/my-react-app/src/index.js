@@ -12,6 +12,7 @@ import UseCustomHookReducerComponent from './components/cusomhookusereducer/usec
 import ContainerComponent from './components/errorchecks/simpleerrorcheckcomponent';
 import ContainerComponentWithErrorBoundary from './components/errorchecks/errorcondarycomponent';
 import ListDepartmentsComponent from './components/routingapp/listdepartmentscomponent';
+import EventTestComponent from './componentfortest/eventtestcomponent';
 // Importing Bootstrap css
 import  './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
@@ -19,6 +20,7 @@ import { BrowserRouter } from 'react-router-dom';
 import MainRouterComponent from './components/routingapp/mainroutercomponent';
 import CodeSplitComponent from './components/codesplitiing/codesplittingcomponent';
 import LazyComponent from './components/lazyloadingcomponent/loazyloadedcomponent';
+import HelloTestComponent from './componentfortest/hellotestcomponent';
 // Point to the <div> rag in index.html that is present
 // in the public
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -28,8 +30,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const Message= 'WelCome';
 root.render(
   <React.StrictMode>
-    {/* The 'message' is a props type thata is passed by the Root to DepartmentComponent */}
-    <LazyComponent></LazyComponent>
+     <EventTestComponent></EventTestComponent>
   </React.StrictMode>
 );
 
