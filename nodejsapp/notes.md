@@ -487,5 +487,22 @@ console.log("Server Started on port 7013");
     - DevOps Introduction
     - Testing
         - Node.js REST API
-        - Load testing
+            - Unit Testing
+                - Mocha
+                    - read all test files from test folder and then load and run them
+                - Chai
+                    - Assertion Library used generally for Node.js 
+                    - Use of the 'Request' module to call REST APIs
+                - Mocha + Chai + Request
+                    - Run the Async Tests
+                Use Swagger           
+            - npm install -g mocha
+                - npm install --save mocha chai request    
+            - Load testing
+                - Tools like JMeter
+                    - Time Frame based exponential request increases 
+            - MAke sure that the Code-Coverage is used to very the the code is having quality for production
+                - Istanbul
+                - nyc
+                    -  npm install --save-dev nyc        
         - React.js Components Testing                                                  

@@ -386,7 +386,7 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
     - Make sure that the data is validated before posting it to the REST API
     - Update and Delete MUST be done by searching the record from Redux Store
         - Store will be updated for each Update and delete
-        - (Optional): Try Updaing/Deleting multiple records from Store and then send them to REST API  
+        - (Optional): Try Updating/Deleting multiple records from Store and then send them to REST API  
 2. Use Redux with react-routing-dom     
 
 # Date: 06-May-2022
