@@ -397,3 +397,11 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
 # Date:09-May-2022
 1. Write a test on DepartmentComponent to make sure that, when Save button is clicked, a new Department record is added into the table
 2. Write a test on DepartmentComponent to make sure that when the invalid DeptNo, DeptName, Capacity are entered validation messaged are displayed    
+
+# 10-May2022
+
+1. Test the REST AP call from Ract Application to Node.js
+2. Test the Data Access Layer of Sequelize using Mocha and Chai for CRUD Operations.
+3. Test the Node.js REST API for (optional)
+    - GET/POST/PU/DELETE calls
+        - Make sure that methods are executing validations
