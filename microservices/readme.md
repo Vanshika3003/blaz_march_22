@@ -1,0 +1,333 @@
+# Using Docker on Dev. MAchine or on-premises
+- Download docker
+    - https://www.docker.com/#
+    - Download and Install Docker Desktop
+- Account on https://hub.docker.io    
+    - Its is Docker Repository where all images are stored 
+
+- Docker Administration Commands,  from Command Line
+# Working With Microservices
+
+1. Docker 
+    - Download the Docker desktop
+    - OS MUST support Hardware based Virtualization
+2. Use the standard Docker Images
+    - https://hub.docker.com
+    - We have various standard images to create the image for our application
+3. The Application MUST have following 2 files
+    - dockerfile
+        - Contains Script for Creating an Image for our application
+            - Application Base Images, e.g. To Run Express on Node, we need Node Base Image
+            - Specify Application Dependencies e.g package.json 
+            - Copy the package.json and application files on Image
+            - Run npm install inside the image
+            - Expose a port from the Container where an image is running 
+            - Run the Image
+    - .dockerignore
+        - The file that contains the configuration that will not be used when the docker image is created         
+4. Docker Commands for Login and listing images and containers
+    - Uses the Docker CLI
+        - docker
+    - Login on docker.com
+        - docker login
+            - Ask the User Name and Password
+            - This is MUSt for Pushing and Pulling Images to and from https://hub.docker.com
+        - docker logout
+            - Logout from Docker
+    - List All docker images on the local Machine
+        - docker images
+    - Each Image Runs into its Container
+    - Command to List all Containers
+        - docker ps
+    - Command to List all Running Containers, they ar running and using resources like CPU, Memory and Network
+        - docker ps -a
+5.  Docker Commands to Build images, Running Images inside the container
+    - Build an image, This Command MUST run from the path where 'dockerfile' is present. The command will read all configurations e.g. Base Image, Files to Copy, Dependencies to install, Port to expose, command to run the application, etc. from the dockerfile
+        - docker build . -t [IMAGE-NAME]:[TAG]
+            - The . means the current path to read dockerfile
+            - The -t, the tag name, the name for image and its version
+            - The IMAGE-NAME, the name of the image. This MUST be in lower case    
+            - The TAG, this is the Version Name, Version Number or any other Unique value
+        - e.g.
+            - docker build . -t myimage:v1
+    - Run the Image
+        - Running the image will create a container. The image will be loaded into the container and then it will be executed
+            - docker run  -p [PORT-ON-LOCAL-MACHINE]:[PORT-EXPOSED-BY-CONTAINER] [IMAGE-NAME]:[TAG] --name=[CONTAINER-NAME-IN-WHICH-IMAGE-WILL-BE-LOADED]
+                - If the the image is having Web App /  REST API then the container will expose the port so that http call will be accepted by it so we need to map the 'PORT-ON-LOCAL-MACHINE' to the 'PORT-EXPOSED-BY-CONTAINER' using '-p'   
+                - The '--name' is the CONTAINER-NAME, this MUST be lower case
+        - Make the container running in background Continuously
+            - docker run -d -p [PORT-ON-LOCAL-MACHINE]:[PORT-EXPOSED-BY-CONTAINER] [IMAGE-NAME]:[TAG] --name=[CONTAINER-NAME-IN-WHICH-IMAGE-WILL-BE-LOADED]  
+    - Stop Container
+        - docker stop [CONTAINER-NAME] | [CONTAINER-ID]
+            - Unload the container and release resources e.g. CPU, Memory, Port, etc.
+    - remove Container
+        - docker rm   [CONTAINER-NAME] | [CONTAINER-ID]
+            - Container MUST be stopped before removing it
+    - Remove Image
+        - docker rmi [IAMGE-NAME]:[TAG] | [IMAGE-ID]
+            -  Container MUST be stopped and deleted before removing image                                    
+    - Pushing Image to Docker repository
+        - https://hub.docekr.com
+        - Tag the image using respository-name
+            - e.g. is the repository name is 'xyz' the tag the image as 
+                - docker tag [IMAGE-NAME]:[TAG] xyz/[IMAGE-NAME]:[TAG]
+        - Use the PUSH command
+            - docker push xyz/[IMAGE-NAME]:[TAG]
+                - The push command will read the repository name from the image name, then connect to repository and then push the image in the repository                  
+       - Pull image from the repository 
+        - docker pull [IMAGE-NAME]:[TAG]           
+
+# Microservices
+1. It is an architecture where the big-complex application is divided into small cohesive set of services
+    - Each Service is
+        - Independent
+        - Containing its own logic
+        - Containing its own database
+        - Containing its own Endpoint
+    - Each service is decouples from other service
+    - Services cannot /  should not communicate with each other directly over Http
+    - Services Communication can takes place using one or all of the following mechanisms
+        - Using Messaging Services
+            - RabbitMQ
+            - Simple Queuing Service on AWS
+            - Azure Service Bus
+            - Any other messaging service provider
+        - Using Distributed Cache
+            - Redis Cache 
+            - Any other Cache provider service
+    - If the application has multiple Microservices then instead of exposing them on different HTTP Endpoints, use the following mechanism for Single Point of Communication
+        - Using Application Gateways
+            - Using Code e.g. Express-Session
+            - Cloud Gateways
+                - Application Gateway by AWS, Azure, Google
+            - Configuration based Gateways e.g. Ingress        
+        - The Multiple Services MUST be deployed on Clusters    
+            - Kubernetes
+                - Minikube
+                - Microk8s
+                - Azure Kubernetes Services (AKS)
+                - Elastic Kubernetes Service (EKS)
+                - Google Kubernetes Service (GKS)
+            - The cluster offers Application Gateway using Ingress            
+2. If using multiple Microservices on premises, then use one of the following
+    - Docker-Compose    
+        - The inbuilt service for deploying, executing and managing multiple microservices
+        - Host Services in separate containers
+        - Expose Ports from  each container
+        - Manages the network resources internally
+    - We need the 'docker-compose.yml' file for building images and hosting them 
+        - The compose needs to read the dockerfile for each microservice
+        - The docker-compose.yml file MUST be on the root of all microservices
+    - The 'docker-compose.yml' file contains following settings
+        - The 'version', the version of compose that will be used to parse the file using docker-engine
+            - The current version is 3.9
+        - The 'services'
+            - This is a collection of all Microservices to be build, hosted and executed
+                - The 'SERVICE-NAME', the name of the service
+                    - The 'build', the folder path where 'dockerfile' exists
+                    - The 'ports', ports exposed from container that is hosting the service  
+                    - The 'links', (Optional) the image on which the current service is linked with
+                        - e.g. if the service is using the cache, then we need to configure the cache image separately  
+                    - The 'depends_on', (Image) the image on which the service is depending on e.g. database image     
+    - To run the docker-compose, go to the path where the docker-compose.yml file is present and then run the following command
+        - docker-compose up
+            - Read DockerFile
+            - Validate it
+            - Build an image
+            - Configure Network Resources if there multiple services    
+        - docker-compose down
+            - This will stop all containers
+            - All resources will be released    
+    - This is good for on-premises apps but for enterprises make use of kubernetes         
+    - Kubernetes on Premises (Recommended)                                 
+3. Practices for creating Microservices
+    - Make sure that the Cloud-Based database is used by Microservice for Data Read/Write operations
+    - Do not use Database Image
+    - For the messaging use the Enterprise Messaging Service Provider (generally on cloud), do not use image    
+
+4. Microservices Development Practices
+    - Autonomous, it has its DAL, Business Layer, Validation and also Identity Check
+        - Access its Own database, The database  MUST be Configured to Access
+        - Either Create a docker Image for Database and use it in Application (Not-Recommended for Production)
+        - Configure the IP Address of Local Database with Container (Time-Consuming Process and IT-Pro guy to help developer)
+        - Access Database Running on Cloud over the Publicly exposed Endpoints (Recommended for Production)   
+            - AWS RDS Instance for RDBMS
+            - AWS DynamoDB for Document Database
+            - Azure SQL
+            - GCP Relational Database Service
+    - Isolated, Each Microservice is having its own predefined and pre-configured boundaries 
+        - Technology Stack (.NET Core, JAVA Sprint-Boot, PHP, Node.js)      
+    - Elastic
+        - One Microservice can run with Multiple Instances those are exposed oin different ports   
+        - We need the Cluster
+        - Help in Scaling the Microservice
+    - Resilient
+        - There is Retry-on-fail configuration can be made possible for Microservice         
+    - Message Oriented
+        - The messaging or communication across Microservices can be implemented using Message-Broker pattern
+            - RabbitMQ
+            - AWS SQS
+            - Any other Queue service or messaging service
+        - Establish Communication Across Microservices with following mechanisms
+            - Use Messaging Provider
+                - RabbitMQ
+                    - This MUST be installed separately
+                    - On-Premises it is free
+                    - On-Cloud, we need to create a Virtual Machine (Azure) OR Elastic Compute Instance (EC 2) (AWS) to install and configure RabbitMQ   
+                - Kafka    
+                - Why not to use Messaging Engines provided by default on Cloud?    
+                    - AWS SQS (Simple-Queing-Service)
+                        - Available from AWS SDK
+            - Using AWS SQS
+                - npm install --save aws-sdk
+                - npm install --save sqs-consumer
+                    - USed for messaging
+                - On the AWS Portal, login
+                    - Create User, you will get the Secret ID and Access Secret
+                    - Search for SQS and create the SQS
+                        - The URL to Access the SQS is
+                         - https://sqs.[REGION-NAME].amazonaws.com/[ACCOUNT-ID]/[SQS-NAME]
+
+            - Use Cache Provider 
+
+    - AWS SDK
+        - The JavaScript Based object Model by AWS for using the AWS Features in JavaScript (Precisely Node.js)
+            - SQS
+            - Cache
+            - Serverless Lambda
+            - Amplify for Static Web Sites
+            - EC 2
+            - DynamoDB
+            - RDS
+        - Download the AWS CLI 
+            - https://docs.aws.amazon.com/cli/v1/userguide/install-windows.html
+        - The AWS CLI will provide the 'aws' Command-Line-Tool
+            - You can configure the developer machine to connect to the AWS Service for Development and Deployment
+            - aws configure
+                - Provide Access Key
+                - Access Secret
+                - Region
+                - Format for Data (Generally JSON by default)
+        - Using aws-sdk for Node.js apps
+            - npm install --save aws-sdk 
+        - Go to IAM user to create an Access Key and Access Secret               
+
+    - Configuring the Service Access Application Gateways
+        - Use Programmable Gateway
+            - Create a Configuration file that contains an Address of Actual Service to forward the request
+            - The Gateway service has its own address
+            - Advantages
+                - Technology can be chosen by us
+                - No additional cost
+                - The Team has control on configuration
+            - Challenges
+                - The Configuration is changed frequently with an addition of new services
+                - The gateway MUST be deployed separately
+            - E.g.
+                - Use Express-Gateway for Node.js+Express Microservices
+            - Using Express Gateway
+                - Consumer Management
+                    - Manage the Authentication from the Customer
+                        - The Configuration file for defining Service Authentication and Authorization 
+                - Distributed Persistent Data Store
+                    - Manages the Data Send by the Consumer in the Persistent Store (e.g. Cache, Messaging) configured for the service
+                - This data is access globally
+                - Plugin System
+                    - Used to configure the Various Middlewares used by Express Runtime
+            - Using Express Gateway
+                - npm install -g express-gateway
+                    - This offers the 'eg' CLI
+                - eg gateway create
+                    - This start a Wizard for Configuration of the gateway project
+                - install dependencies
+                    - npm install --save @babel/core @babel/node @babel/preset-env    
+                - Dependencies for Express-Gateway app
+                    - @babel/core
+                        - Babel Transpiler
+                        - USed to use understand the Configuration object for Services in Gateway
+                    - @babel/node
+                        - The EWS 6 transpiler of Babel for Node.js Apps 
+                    - @babel/preset-env     
+                        - The Environment Configuration for Gateway Project
+                - Add a  'script' in package.json to run the server file which will load the gateway configuration
+                    - "script":{
+                         "start": "nodemon --exec babel-node server.js"
+                    }
+                - gateway.config.yml
+                    - This file contains the gateway configuration
+                    - yml: Deployment Markup Language, this will be converted into JSON object and then it will be executed by Environment     
+        - Use Kubernetes Cluster Management Gateway 
+            - Ingress
+            - Istio                
+            - All these MUST be configured Correctly and deployed correctly
+            - Both are VERY COMPLEX
+        - Use the Cloud Provide Gateway
+            - Easy
+            - Available with Some Deployment Features out-of-the-box e.g. AWS Serverless (aka Lambda)
+            - COST is involved    
+    - Data Persistence Practices in Microservices
+        - Using Relational Database
+            - Frequently used for Line-of-Business (LOB) Apps
+            - Provides a Lift-and-Shift experience of Data and Database Migrations from On-Premises Data Store to Cloud 
+                - RDS on AWS
+                    - MySQL
+                    - Postgres
+                    - SQL Server
+                    - Oracle
+        - Using NoSQL Database
+            - Recommended in Large-Scale Data Collection Applications
+            - NoSQL Data Provide from Cloud is Key for Microservices Apps
+                - Use DynamoDB, on AWS
+                    - Big-Data Solution on Cloud
+                        - Full-Managed, serverless, kay-value NoSQL Database for Application like
+                            - High-Performance Apps
+                            - Analytics Apps
+                            - Globally distributed data apps
+                    - Huge Data Storage Features
+                        - 25 GB Storage with 200 million read/write requests per month in Free Subscription
+                    - High-Availability
+                    - Data Read/Write Unit
+                        - Per Unit Size 4 KB for an item
+                    - Data is Stored in 'Table'
+                        - Table has Attributes (Concept Like Columns) 
+                        - The Document or a Record (Concept Like Rows)
+                    - On-Demand Data Read/Write Per-Table   
+                        - 40000 Read and Write request Units
+                    - To Access the DynamoDB we need an Account
+                        - Per Account Mac 256 Tables
+                        - No Size Limit for Table
+                    - Each Table MUST have
+                        - Partition Key
+                        - Sort Key 
+                        - Both These Keys in COmbine are accepted as 'Primary Key'
+                - To Access the DynamoDB Service we need following
+                    - The AWS Subscription
+                    - The AWS Access Permission for the Account
+                    - Clear Requirements for Table, Items, Read and Write Units
+                    - AWS.DynamoDB() Object    
+                        - createTable() to Table
+                    - AWS.DynamoDB.DocumentClient() Object
+                        - put(), to create new Record
+                        - get(), to read record based on Partition Key and Sort Key
+                        - update(), to modify record
+                        - delete(), to delete record
+                        - scan(), return all Items   
+                - Use MongoDB
+        - Using Binary-Large-Object (BLOB)  
+            - Data is stored in Binary Documents
+                - Images, Spreadsheets, Documents, PDFs, Media Files
+            - Cost is a Key on Cloud
+                - On AWS, use Simple Storage Service, the Cloud BAsed Object Storage (S3)
+            - npm install --save aws-sdk    
+            - The S3 Bucket
+                - Used to store all Binary Files
+                - Industry-leading and industry standard scalable, secure, high-performance, durable data storage for Binary files
+                - Max File sSiz Allowed is 5 TB
+                - One PUT request (One request for Upload) can store 5 GB of File Size 
+                - The Data is Organized as Key-bAsed Object Store  
+        - Distributed Caching
+            - When the data is not frequently changing then instead of accessing data from Database and increasing Read-Unit (RU) cost, cache data from a Pre-Calculated Time Duration         
+                - Redis Cache
+                - Elastic Cache     
+
+
