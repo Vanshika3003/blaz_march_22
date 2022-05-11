@@ -52,11 +52,14 @@
             - docker build . -t myimage:v1
     - Run the Image
         - Running the image will create a container. The image will be loaded into the container and then it will be executed
-            - docker run  -p [PORT-ON-LOCAL-MACHINE]:[PORT-EXPOSED-BY-CONTAINER] [IMAGE-NAME]:[TAG] --name=[CONTAINER-NAME-IN-WHICH-IMAGE-WILL-BE-LOADED]
+             - docker run  -p [PORT-ON-LOCAL-MACHINE]:[PORT-EXPOSED-BY-CONTAINER] [IMAGE-NAME]:[TAG]  
+             OR
+            - docker run -d -p 7011:7011 --name bservcont bserv1:v1
+            - docker run  -p [PORT-ON-LOCAL-MACHINE]:[PORT-EXPOSED-BY-CONTAINER] --name[CONTAINER-NAME-IN-WHICH-IMAGE-WILL-BE-LOADED] [IMAGE-NAME]:[TAG] 
                 - If the the image is having Web App /  REST API then the container will expose the port so that http call will be accepted by it so we need to map the 'PORT-ON-LOCAL-MACHINE' to the 'PORT-EXPOSED-BY-CONTAINER' using '-p'   
                 - The '--name' is the CONTAINER-NAME, this MUST be lower case
         - Make the container running in background Continuously
-            - docker run -d -p [PORT-ON-LOCAL-MACHINE]:[PORT-EXPOSED-BY-CONTAINER] [IMAGE-NAME]:[TAG] --name=[CONTAINER-NAME-IN-WHICH-IMAGE-WILL-BE-LOADED]  
+            - docker run -d -p [PORT-ON-LOCAL-MACHINE]:[PORT-EXPOSED-BY-CONTAINER]  --name [CONTAINER-NAME-IN-WHICH-IMAGE-WILL-BE-LOADED] [IMAGE-NAME]:[TAG]  
     - Stop Container
         - docker stop [CONTAINER-NAME] | [CONTAINER-ID]
             - Unload the container and release resources e.g. CPU, Memory, Port, etc.
