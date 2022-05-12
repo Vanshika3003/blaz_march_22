@@ -405,3 +405,9 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
 3. Test the Node.js REST API for (optional)
     - GET/POST/PU/DELETE calls
         - Make sure that methods are executing validations
+
+# Date: 12-May-2022
+
+1. Create an Express REST API that will accept the file from React Application and updload it into the S3 Bucket on AWS
+    - Host the Node.js Express app as Microservice and make sure that the React app connects to Node.js+Express app running in Docker also
+    - Please Refer: https://www.devcurry.com/2020/03/mern-stack-javascript-web-application.html
