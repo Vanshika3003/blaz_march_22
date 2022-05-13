@@ -62,15 +62,36 @@
             - MySQL, PostgreSQL, MariaDB, MS-SQL, eyc.
         - Azure SQL
         - Azure Relational Instance for
-            - ySQL, PostgreSQL, MariaDB, etc.
+            - MySQL, PostgreSQL, MariaDB, etc.
     - NoSQL
         - DynamoDB on AWS
+            - use the EndPoint to connect
+                - https://dynamodb.[REGION-NAME].amazonaws.com
+                - https://dynamodb.ap-south-1.amazonaws.com
         - CosmosDB on Azure
             - SQL API aka DocumentDB
             - MongoDB
             - TableService
             - Graph             
 
+# Two Types of Modern App
+1. Cloud Based App , Lift-and-Shift
+    - Deploy app on Cloud
+        - EC 2 instance (Virtual Machine)
+            - Deploy App
+            - Deploy Database
+        - Use the Network Security Group, Security Rules, IP Adresses     
+    - Use the application specific Security
+        - DB with Credentials Information        
+2. Cloud Enable App
+    - The application is definitely Cloud Based
+    - The Application uses the Cloud Resources
+        - Relational Database, RDS Service
+        - NoSQL Database, DynamoDB
+        - Storage, S3
+        - Messaging, SQL, Cloud Based Messaging Service
+        - Cache Service
+        - .... any many more as per Application need
 # Using AWS Services
 
 1. Download and install AWS CLI on the Machine

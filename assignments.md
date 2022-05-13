@@ -411,3 +411,9 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
 1. Create an Express REST API that will accept the file from React Application and updload it into the S3 Bucket on AWS
     - Host the Node.js Express app as Microservice and make sure that the React app connects to Node.js+Express app running in Docker also
     - Please Refer: https://www.devcurry.com/2020/03/mern-stack-javascript-web-application.html
+
+# Date: 13-May-2022
+1. Create Service 1, that will accept Order Data from React App and save it into DynamoDB or PostgrsSQL RDS instance in Orders Database. 
+2. Once the Data is successfully saved in database, Service 1 will pass this data to SQS
+3. Create Service 2, this will consume the Data from SQS in Background and save in into  DynamoDB or PostgrsSQL RDS instance in ProcessOrder Database.
+4. Service 2 will use Express API with GET request to read order data from ProcessOrder database  
