@@ -1,0 +1,26 @@
+version: '3.9'
+
+# Define Services
+
+services:
+  sender: # name of the service
+    build:  sender # Read docker file from this path
+    ports:
+      - "8976:8976" # the port mapping [LOCAL-MACHINE-PORT]:[CONTAINER-PORT]
+    depends_on:
+      - rabbitmq   # sender is depending on the rabbit mq for sending messages
+  # receiver: # name of the service
+  #   build:  receiver # Read docker file from this path
+  #   ports:
+  #     - "8977:8977" # the port mapping [LOCAL-MACHINE-PORT]:[CONTAINER-PORT]   
+  #   depends_on:
+  #     - rabbitmq    # receiver is depending on the rabbit mq for receiving messages
+  rabbitmq:
+    container_name: emessage-rabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    image: rabbitmq:3-management           

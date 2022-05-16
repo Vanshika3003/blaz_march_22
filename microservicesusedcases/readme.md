@@ -90,6 +90,13 @@
         - NoSQL Database, DynamoDB
         - Storage, S3
         - Messaging, SQL, Cloud Based Messaging Service
+            - Cloud Based Enterprise Messaging using RabbitMQ
+                - amqplib
+                    - Asynchronous Message Queue Protocol
+                    - @types/amqplib
+                        - Type Intellisense 
+                - amqplib-rabbitmq
+                    - Inetgrataion with RabbitMQ Service      
         - Cache Service
         - .... any many more as per Application need
 # Using AWS Services
@@ -106,3 +113,64 @@ Default output format : [FORMAT]
 3. To Access AWS Service, we need AWS_SDK for Node.js JavaScript Apps
     - npm install --save aws-sdk
 4. Use S3 i.e. Simple Storage Services to upload Binary Files to AWS using Node.js      
+
+
+# Kubernetes important Concepts
+
+1. Cluster
+    - A group of physical or virtual servers where Kubernetes is installed
+2. Node (Master)
+    - Physical or virtual server that controls the Kubernetes cluster
+3. Node (Worker)
+    - Physical or virtual server where the container technology run on it
+        - AWS Elastic Container Service (ECR)        
+        - Azure Azure Container Service (ACR)
+4. Pods
+    - Group of containers and volumns which shared teh same network namespace
+5. Laebls:
+    - Key:Value pair defined by the DevOps Engineer which is associated with Pod
+6 Master: 
+    - Control plane components that provides access to manage the cluster
+7. Service
+    - An abstraction which servs as a prosy for group of pods
+
+- The Deployment Configurations (yml file)
+    - Set the Service Deployment Metadata
+        - label
+        - Provide the Service Specification
+            - Container
+                - name
+                - image
+                - resources
+                    - Memory
+                    - CPU
+                - port configuration
+                    -  container Port
+- The Service Configuration (yml)
+    - Use the deployment configuration Label
+        - Connection Type
+            - Access point to the service
+                - LoadBalancer, port from out-side communication (Specify the service access from the Cloud Provider)
+                - ClusterIP, internal IP where the service is exposed. Limited within the cluster
+                - NodePort, expose the service on Node's IP (Static POrt)    
+- The gateway configuration
+    - create gateway.yml and configure the gate way
+        - e.g. ingress, istio, etc
+    - Recommeds to use Cloud API gateway    
+- Kubernetes Commands
+    - kubectl get pods
+        - List all Pods
+    - kubectl get nodes
+        - List all Nodes
+    - kubectl get services
+        - List all service and their IPs for accessing
+    - kubectl describe pod [POD-ID]        
+    - kubectl apply -f [deployment].yml
+        - Create deployment environment e.g. fetch image, create container, allocate CPU and RAM, apply environment variables
+    - kubectl apply -f [service].yml
+        - configure service of POD so that its can be accessed over LoadBalancer, ClusterIP, NodePort
+    - kubectl delete -f [service].yml
+        - delete the service and free Port and IP
+    - kubectl delete -f [deployment].yml
+        - delete physical resources e.g. CContainer, CPU release, Memory release, etc.             
+
