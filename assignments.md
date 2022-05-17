@@ -417,3 +417,6 @@ HINT: https://www.dotnetcurry.com/aspnet-mvc/1039/drag-drop-html5-aspnet-mvc-jqu
 2. Once the Data is successfully saved in database, Service 1 will pass this data to SQS
 3. Create Service 2, this will consume the Data from SQS in Background and save in into  DynamoDB or PostgrsSQL RDS instance in ProcessOrder Database.
 4. Service 2 will use Express API with GET request to read order data from ProcessOrder database  
+
+# Date: 17-May-2022
+1. Create a Kubernetes deployed Microservice which will perform CRUD Operation on DynamoDB

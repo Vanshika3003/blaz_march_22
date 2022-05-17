@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: servk8slocal #deployment name for the service
+spec:
+  selector:
+    app: servk8slocal # The name of the service MUST with spec.selector.app
+  type: LoadBalancer # The Service will be published on Public IP assigned by the cluster 
+  ports:
+    - port: 6701 # Port provided by cluster to access the service using LoadBalancer
+      targetPort: 7011 # container Port

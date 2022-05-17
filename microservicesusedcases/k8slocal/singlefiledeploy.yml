@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment  
+metadata:
+  name: servk8sdeploylocal
+  namespace: default  
+spec:  
+  replicas: 2  
+  selector: 
+    matchLabels:  
+      app: servk8slocal # This will be the service deployment value which will be used by the service.yml for service deployment
+  template:
+    metadata:
+      labels:
+        app: servk8slocal # This will be the service name  that will be created, use this in  service.yml
+    spec: # specification for service deployment
+      containers: # define containers information
+      - name: servk8slocalcontainer # name of the container
+        image: mast007/servk8slocal:v1 # image to bhe pulled from the DOcker HUB
+        resources: # Infrastructure resurces
+          limits:
+            memory: "128Mi" # same as 128 MB
+            cpu: "500m" # Percentage of the CPU  same as half the CPU
+        ports:
+        - containerPort: 7011 # the port exposed by the container      
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: servk8slocal #deployment name for the service
+spec:
+  selector:
+    app: servk8slocal # The name of the service MUST with spec.selector.app
+  type: LoadBalancer # The Service will be published on Public IP assigned by the cluster 
+  ports:
+    - port: 6701 # Port provided by cluster to access the service using LoadBalancer
+      targetPort: 7011 # container Port

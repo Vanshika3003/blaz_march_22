@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment # this is the configuration for POD deployment in K8s
+metadata:
+  name: servk8sdeploylocal #name of the deployment
+  namespace: default # the namespace under which the POS and service will be deployed
+spec: #deployment specifications
+  replicas: 2 # This will create multiple pods
+  selector: # query to the POD for deploying the service
+    matchLabels: # the name will be match
+      app: servk8slocal # This will be the service deployment value which will be used by the service.yml for service deployment
+  template:
+    metadata:
+      labels:
+        app: servk8slocal # This will be the service name  that will be created, use this in  service.yml
+    spec: # specification for service deployment
+      containers: # define containers information
+      - name: servk8slocalcontainer # name of the container
+        image: mast007/servk8slocal:v1 # image to bhe pulled from the DOcker HUB
+        resources: # Infrastructure resurces
+          limits:
+            memory: "128Mi" # same as 128 MB
+            cpu: "500m" # Percentage of the CPU  same as half the CPU
+        ports:
+        - containerPort: 7011 # the port exposed by the container      

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment  
+metadata:
+  name: multiservdeploy
+  namespace: default  
+spec:  
+  replicas: 2  
+  selector: 
+    matchLabels:  
+      app: multiservdeploy
+  template:
+    metadata:
+      labels:
+        app: multiservdeploy
+    spec: 
+      containers: 
+      - name: s1k8slocal-container 
+        image: mast007/s1k8slocal:v1  
+        resources: 
+          limits:
+            memory: "128Mi"  
+            cpu: "500m"
+        ports:
+        - name: s1 # since there are multiple service specific name for the port
+          containerPort: 7011     
+      - name: s2k8slocal-container 
+        image: mast007/s2k8slocal:v1  
+        resources: 
+          limits:
+            memory: "128Mi"  
+            cpu: "500m"
+        ports:
+        - name: s2 
+          containerPort: 7012       
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: multiservdeploy 
+spec:
+  selector:
+    app: multiservdeploy 
+  type: LoadBalancer
+  ports:
+    - name: s1
+      port: 7701 
+      targetPort: s1 # Map the port name as s1 in deployment section
+    - name: s2
+      port: 7702 
+      targetPort: s2 # Map the port name as s1 in deployment section  

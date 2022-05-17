@@ -1,0 +1,15 @@
+# fetch a base image of Nodse.js where the Express app will be hosted and executed
+FROM node:16.15.0-alpine3.15
+# create a folder where we will copy all application file
+WORKDIR /usr/src/app
+# Copy package.json and package-lock.json on image
+COPY package*.json ./
+# inside image install all pckages mentioned in package.json
+# make sure that only production ready packages will be installed
+RUN npm install --only=production
+# copy all application files of source project into the target 
+COPY . .
+# Expose a port from the container to access API running inside the container
+EXPOSE 7011
+# Run the application from Image
+CMD [ "npm","start" ] 

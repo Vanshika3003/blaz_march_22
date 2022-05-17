@@ -154,7 +154,7 @@ Default output format : [FORMAT]
                 - ClusterIP, internal IP where the service is exposed. Limited within the cluster
                 - NodePort, expose the service on Node's IP (Static POrt)    
 - The gateway configuration
-    - create gateway.yml and configure the gate way
+    - create gateway.yml and configure the gate way` 
         - e.g. ingress, istio, etc
     - Recommeds to use Cloud API gateway    
 - Kubernetes Commands
