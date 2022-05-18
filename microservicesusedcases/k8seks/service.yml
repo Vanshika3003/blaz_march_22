@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: servk8scloud #deployment name for the service
+spec:
+  selector:
+    app: servk8scloud # The name of the service MUST with spec.selector.app
+  type: NodePort # The Communication provided by EKS Cluster Node 
+  ports:
+    - nodePort: 31479
+      port: 6701 # private port for internal communication
+      targetPort: 7011 # container Port

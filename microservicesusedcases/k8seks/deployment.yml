@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment  
+metadata:
+  name: servk8sdeploycloud  
+  namespace: default  
+spec:   
+  selector:  
+    matchLabels:  
+      app: servk8scloud 
+  template:
+    metadata:
+      labels:
+        app: servk8scloud
+    spec:
+      containers:
+      - name: ekscloudcontainer 
+        image: [SUBSCRIPTION-ID].dkr.ecr.[REGION-NAME].amazonaws.com/eksdemoecr:v1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 7011     
