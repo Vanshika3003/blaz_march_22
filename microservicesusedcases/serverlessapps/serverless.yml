@@ -1,0 +1,20 @@
+# the deployment configuration file for the serverless app
+
+# 1. define name
+
+service: blaze-serverless
+# 2. deployment information of the provider
+provider:
+  name: aws # the AWS Cloud
+  runtime: nodejs14.x # node.js runtime version supported by the AWS Lambda
+  stage: dev # the mode of the deployment 'dev' (development) / prod for (production)
+  region: ap-south-1 # region
+  lambdaHashingVersion: 20201221
+# 3. The Lambda Function Description
+functions:
+  app:
+    handler: index.handler # the REST API instance exported from index.js
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+

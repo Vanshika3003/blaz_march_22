@@ -1,0 +1,19 @@
+{
+  "name": "serverlessapps",
+  "version": "1.0.0",
+  "description": "1. Run the code w/o provisioning or managing infrastructure\r     - Upload the code and ask the cloud to execute it\r     - Pay for the processing time only\r     - Execute the code based on events and scale the code as per the need implicitly\r     - Optimize the execution time and performance\r         - CPU Utilization\r         - Memory Utilization\r 2. Need for Apps\r     - Run the code on event/trigger\r     - Perform the Operation\r 3. AWS Lambda\r     - Configure the deployment\r     - Inform the AWS about the Runtime Stack\r         - The execution Engine\r             - Node.js, JRE, .NET, ect.             \r 4. Cases / Events those are generally used for developing Serverless app\r     - Client App (React/Angular/Vuew/JSP/ASP.NET Core/Mobile App) ---> Upload File in S3 ---> Trigger the Lambda ---> The Serverless Function is executed to process the file behind the scene            \r     - Sender send Message to Queue --> Trigger is executed when message in Queue --> Lambda Function Read the Message and Process it internally\r     - Inter Backup of data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+   
+  "dependencies": {
+    "aws-sdk": "^2.1138.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "serverless-http": "^3.0.1"
+  }
+}

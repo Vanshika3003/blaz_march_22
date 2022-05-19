@@ -109,3 +109,22 @@ docker tag servk8seks:v1 472804039072.dkr.ecr.ap-south-1.amazonaws.com/eksdemoec
 - Create a Cluster.json and use all information received from Cloud Formation to create the cluster. create cluster using  this file into .kube folder of c:\user\[USER]\.kube\config
 
 - eksctl create cluster -f cluster.json --kubeconfig=c:\users\acer\.kube\config
+
+
+- Ways to Create gateways
+  - What is gateway?
+    - An Entry-point to the cluster to access ANY Microservice deployed on it
+    - Kubernetes Local Cluster
+      - Ingress
+        - Using yml file
+    - Microsk8s
+      - Ingress
+        - using yml
+      - Istio   
+        - Provide configuration to  the cluster explicitly 
+    - Cloud (AKS, EKS, GKS, ect.)
+      - Ingress
+        - Configure using yml
+      - Cloud API Gateways (recommended)   
+  - Express-Gateway
+    - Code, it, COnfigure it, change it when a new Microservice is added       
